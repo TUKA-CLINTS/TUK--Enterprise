@@ -120,8 +120,8 @@ async function productModal(product) {
         ${field({ label: 'Reorder level', name: 'reorder_level', type: 'number', min: 0, step: 1, value: product ? product.reorder_level : 5, hint: 'Alert when stock falls to this level.' })}
       </div>
       <div class="field-row">
-        ${field({ label: 'Selling price (KES)', name: 'price', type: 'number', min: 0, value: product ? product.price : '' })}
-        ${field({ label: 'Cost price (KES)', name: 'cost', type: 'number', min: 0, value: product ? product.cost : '' })}
+        ${field({ label: 'Selling price (UGX)', name: 'price', type: 'number', min: 0, value: product ? product.price : '' })}
+        ${field({ label: 'Cost price (UGX)', name: 'cost', type: 'number', min: 0, value: product ? product.cost : '' })}
       </div>
       ${field({ label: 'Quantity in stock', name: 'quantity', type: 'number', min: 0, step: 1, value: product ? product.quantity : 0 })}
     `,
@@ -302,13 +302,13 @@ function orderModal(order) {
       <div class="line-items">
         <table>
           <thead>
-            <tr><th>Product</th><th class="col-qty">Qty</th><th>Unit price (KES)</th><th class="col-line-total">Line total</th><th></th></tr>
+            <tr><th>Product</th><th class="col-qty">Qty</th><th>Unit price (UGX)</th><th class="col-line-total">Line total</th><th></th></tr>
           </thead>
           <tbody id="line-rows">${initialLines.map(lineRowHTML).join('')}</tbody>
         </table>
       </div>
       <button type="button" class="btn btn-ghost btn-sm" id="add-line">+ Add item</button>
-      <div class="order-total">Total: <span id="order-total">KES 0</span></div>
+      <div class="order-total">Total: <span id="order-total">UGX 0</span></div>
     `,
     onSubmit: async (form) => {
       const items = [];

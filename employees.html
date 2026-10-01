@@ -47,7 +47,18 @@
     <section class="card">
       <div class="card-head">
         <div><h2>Enrollment applications</h2><p class="muted">Managers verify and forward requests. Administrators approve or reject them.</p></div>
-        <button id="refresh-applications" class="btn btn-ghost btn-sm" type="button">Refresh</button>
+        <div class="toolbar-inline">
+          <label class="sr-only" for="application-filter">Application status</label>
+          <select id="application-filter" aria-label="Application status">
+            <option value="all">All applications</option>
+            <option value="submitted">Pending manager review</option>
+            <option value="forwarded">Pending admin approval</option>
+            <option value="approved">Approved, awaiting credentials</option>
+            <option value="rejected">Rejected</option>
+            <option value="credentials_created">Credentials created</option>
+          </select>
+          <button id="refresh-applications" class="btn btn-ghost btn-sm" type="button">Refresh</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>

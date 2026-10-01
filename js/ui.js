@@ -9,7 +9,7 @@ export function esc(value) {
 
 export function fmtMoney(n) {
   const num = Number(n) || 0;
-  return 'KES ' + num.toLocaleString('en-KE', { maximumFractionDigits: 2 });
+  return 'UGX ' + num.toLocaleString('en-UG', { maximumFractionDigits: 0 });
 }
 
 export function fmtDate(ms) {

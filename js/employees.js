@@ -23,6 +23,7 @@ function init() {
     loadUsers();
   }
   document.getElementById('applications-body').addEventListener('click', onApplicationsClick);
+  document.getElementById('application-filter').addEventListener('change', renderApplications);
   document.getElementById('refresh-applications').addEventListener('click', loadApplications);
   window.addEventListener('online', loadUsers);
   window.addEventListener('offline', updateOfflineNote);
@@ -75,8 +76,12 @@ function applicationStatus(status) {
 
 function renderApplications() {
   const admin = isAdmin();
-  document.getElementById('applications-body').innerHTML = applications.length
-    ? applications.map((application) => `<tr>
+  const filter = document.getElementById('application-filter').value;
+  const visibleApplications = filter === 'all'
+    ? applications
+    : applications.filter((application) => application.status === filter);
+  document.getElementById('applications-body').innerHTML = visibleApplications.length
+    ? visibleApplications.map((application) => `<tr>
         <td><strong>${esc(application.name)}</strong><br><span class="muted">${esc(application.email)}${application.phone ? ` · ${esc(application.phone)}` : ''}</span></td>
         <td>${badge(deptLabel(application.department), 'blue')}</td>
         <td>${esc(application.requirements)}</td>
@@ -84,7 +89,7 @@ function renderApplications() {
         <td>${new Date(Number(application.created_at)).toLocaleDateString()}</td>
         <td class="actions-cell">${applicationActions(application, admin)}</td>
       </tr>`).join('')
-    : emptyRow(6, 'No enrollment applications found.');
+    : emptyRow(6, filter === 'forwarded' ? 'No requests are pending administrator approval.' : 'No enrollment applications found.');
 }
 
 function applicationActions(application, admin) {

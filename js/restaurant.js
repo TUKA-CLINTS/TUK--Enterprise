@@ -111,7 +111,7 @@ async function menuModal(item) {
             { value: 'drink', label: 'Drink' }, { value: 'dessert', label: 'Dessert' }
           ]
         })}
-        ${field({ label: 'Price (KES)', name: 'price', type: 'number', min: 0, value: item ? item.price : '' })}
+        ${field({ label: 'Price (UGX)', name: 'price', type: 'number', min: 0, value: item ? item.price : '' })}
       </div>
       ${field({ label: 'Description', name: 'description', value: item ? item.description : '', placeholder: 'Short description for the menu', textarea: true })}
       ${field({ label: 'Available today', name: 'available', checkbox: true, value: item ? Number(item.available) : 1 })}
@@ -229,13 +229,13 @@ function orderModal(order) {
       <div class="line-items">
         <table>
           <thead>
-            <tr><th>Menu item</th><th class="col-qty">Qty</th><th>Unit price (KES)</th><th class="col-line-total">Line total</th><th></th></tr>
+            <tr><th>Menu item</th><th class="col-qty">Qty</th><th>Unit price (UGX)</th><th class="col-line-total">Line total</th><th></th></tr>
           </thead>
           <tbody id="line-rows">${initialLines.map(lineRowHTML).join('')}</tbody>
         </table>
       </div>
       <button type="button" class="btn btn-ghost btn-sm" id="add-line">+ Add item</button>
-      <div class="order-total">Total: <span id="order-total">KES 0</span></div>
+      <div class="order-total">Total: <span id="order-total">UGX 0</span></div>
     `,
     onSubmit: async (form) => {
       const tableNo = formValue(form, 'table_no');
