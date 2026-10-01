@@ -317,12 +317,6 @@ a { color: var(--brand); }
 .btn-accent { background: var(--accent); color: var(--brand-dark); }
 .btn-accent:hover:not(:disabled) { background: var(--accent-dark); color: #fff; }
 
-.btn-ghost {
-  background: transparent;
-  color: inherit;
-  border-color: currentColor;
-  opacity: 0.85;
-}
 .app-header .btn-ghost { color: #fff; }
 #page .btn-ghost, .modal .btn-ghost { color: var(--brand); }
 .btn-ghost:hover:not(:disabled) { opacity: 1; background: rgba(22, 65, 139, 0.08); }
@@ -621,7 +615,7 @@ body.modal-open { overflow: hidden; }
 /* ---- Landing page -------------------------------------------------------- */
 
 .hero {
-  background: linear-gradient(160deg, var(--brand-dark) 0%, var(--brand) 55%, #1e56b3 100%);
+  background: linear-gradient(160deg, var(--brand-dark) 0%, var(--brand) 55%, #1eb32a 100%);
   color: #fff;
   padding: 3.2rem 1.2rem 3.6rem;
   text-align: center;
@@ -653,6 +647,9 @@ body.modal-open { overflow: hidden; }
 .section { max-width: 1100px; margin: 0 auto; padding: 2.4rem 1.2rem; }
 .section-title { text-align: center; font-size: 1.5rem; margin-bottom: 0.4rem; }
 .section-sub { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 1.8rem; }
+.section-h2{
+  color: #ec0a0a;
+}
 
 .services-grid {
   display: grid;
@@ -705,7 +702,7 @@ body.modal-open { overflow: hidden; }
 
 .cta-band {
   background: linear-gradient(160deg, var(--brand) 0%, var(--brand-dark) 100%);
-  color: #fff;
+  color: #09dd1b;
   border-radius: var(--radius);
   padding: 2.2rem 1.5rem;
   text-align: center;
