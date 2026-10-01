@@ -123,6 +123,8 @@ CREATE TABLE IF NOT EXISTS trips (
   driver_id   CHAR(36)     NOT NULL DEFAULT '',
   origin      VARCHAR(120) NOT NULL DEFAULT '',
   destination VARCHAR(120) NOT NULL DEFAULT '',
+  customer_name VARCHAR(120) NOT NULL DEFAULT '',
+  fare        DECIMAL(12,2) NOT NULL DEFAULT 0,
   departure   BIGINT       NOT NULL DEFAULT 0,
   arrival     BIGINT       NOT NULL DEFAULT 0,
   cargo       VARCHAR(255) NOT NULL DEFAULT '',
@@ -152,6 +154,7 @@ CREATE TABLE IF NOT EXISTS menu_items (
 
 CREATE TABLE IF NOT EXISTS restaurant_orders (
   id         CHAR(36)      NOT NULL PRIMARY KEY,
+  customer_name VARCHAR(120) NOT NULL DEFAULT '',
   table_no   VARCHAR(20)   NOT NULL DEFAULT '',
   items      JSON          NULL,
   total      DECIMAL(12,2) NOT NULL DEFAULT 0,

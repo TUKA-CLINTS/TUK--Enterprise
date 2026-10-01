@@ -17,6 +17,16 @@ require('dotenv').config({ path: path.join(__dirname, '.env') });
   });
   try {
     await conn.query(sql);
+    // Keep existing installations compatible with the expanded receipt fields.
+    for (const statement of [
+      "ALTER TABLE trips ADD COLUMN customer_name VARCHAR(120) NOT NULL DEFAULT '' AFTER destination",
+      "ALTER TABLE trips ADD COLUMN fare DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER customer_name",
+      "ALTER TABLE restaurant_orders ADD COLUMN customer_name VARCHAR(120) NOT NULL DEFAULT '' AFTER id"
+    ]) {
+      try { await conn.query(statement); } catch (err) {
+        if (!/duplicate column/i.test(String(err.message))) throw err;
+      }
+    }
     console.log('[init-db] Database "tukent" and all tables are ready.');
   } finally {
     await conn.end();

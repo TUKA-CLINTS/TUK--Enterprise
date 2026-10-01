@@ -3,9 +3,10 @@ import { initShell } from '../script.js';
 import { DB, saveRecord, deleteRecord } from './db.js';
 import { notifyLocalChange } from './sync.js';
 import {
-  esc, fmtDateTime, toast, openModal, confirmDialog, field, formValue,
+  esc, fmtMoney, fmtDateTime, toast, openModal, confirmDialog, field, formValue, formNumber,
   statusBadge, emptyRow, setupTabs, toDatetimeLocal, fromDatetimeLocal
 } from './ui.js';
+import { printReceipt } from './receipt.js';
 
 const shell = initShell({ active: 'transport', requireDepartment: 'transport' });
 
@@ -231,23 +232,35 @@ function renderTrips() {
   document.getElementById('trips-body').innerHTML = trips.length
     ? trips.map((t) => `<tr>
         <td class="nowrap">${fmtDateTime(t.departure)}</td>
+        <td>${esc(t.customer_name || 'Walk-in client')}</td>
         <td>${esc(t.origin || '?')} &rarr; ${esc(t.destination || '?')}</td>
         <td>${esc(vehicleName(t.vehicle_id))}</td>
         <td>${esc(driverName(t.driver_id))}</td>
         <td>${esc(t.cargo || '—')}</td>
+        <td class="num">${fmtMoney(t.fare)}</td>
         <td>${statusBadge(t.status)}</td>
         <td class="actions-cell">
+          <button class="btn btn-primary btn-sm" data-act="receipt" data-id="${t.id}" type="button">Receipt</button>
           <button class="btn btn-ghost btn-sm" data-act="edit" data-id="${t.id}" type="button">Edit</button>
           <button class="btn btn-ghost btn-sm" data-act="delete" data-id="${t.id}" type="button">Delete</button>
         </td>
       </tr>`).join('')
-    : emptyRow(7, 'No trips scheduled yet.');
+    : emptyRow(9, 'No trips scheduled yet.');
 }
 
 async function onTripsClick(event) {
   const button = event.target.closest('button[data-act]');
   if (!button) return;
   const trip = trips.find((t) => t.id === button.dataset.id);
+  if (button.dataset.act === 'receipt') {
+    printReceipt({
+      service: 'transport', receiptNo: `TRANS-${String(trip.id).slice(0, 8).toUpperCase()}`,
+      customer: trip.customer_name, date: trip.departure, total: trip.fare,
+      lines: [{ name: `Transport: ${trip.origin || '?'} to ${trip.destination || '?'}`, qty: 1, total: trip.fare }],
+      meta: { Vehicle: vehicleName(trip.vehicle_id), Driver: driverName(trip.driver_id), Status: trip.status }
+    });
+    return;
+  }
   if (button.dataset.act === 'edit') {
     tripModal(trip);
   } else if (button.dataset.act === 'delete') {
@@ -270,6 +283,10 @@ async function tripModal(trip) {
     submitLabel: isEdit ? 'Save changes' : 'Schedule trip',
     wide: true,
     bodyHTML: `
+      <div class="field-row">
+        ${field({ label: 'Client name', name: 'customer_name', value: trip ? trip.customer_name : '', placeholder: 'e.g. Daniel Mwangi' })}
+        ${field({ label: 'Fare (UGX)', name: 'fare', type: 'number', min: 0, value: trip ? trip.fare : 0 })}
+      </div>
       <div class="field-row">
         ${field({ label: 'From (origin)', name: 'origin', value: trip ? trip.origin : '', required: true, placeholder: 'Nairobi' })}
         ${field({ label: 'To (destination)', name: 'destination', value: trip ? trip.destination : '', required: true, placeholder: 'Mombasa' })}
@@ -302,6 +319,8 @@ async function tripModal(trip) {
         created_at: trip ? trip.created_at : undefined,
         origin,
         destination,
+        customer_name: formValue(form, 'customer_name'),
+        fare: Math.max(0, formNumber(form, 'fare')),
         vehicle_id: formValue(form, 'vehicle_id'),
         driver_id: formValue(form, 'driver_id'),
         departure: fromDatetimeLocal(formValue(form, 'departure')),

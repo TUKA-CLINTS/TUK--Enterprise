@@ -2,6 +2,7 @@
 import { initShell } from '../script.js';
 import { DB, saveRecord, deleteRecord } from './db.js';
 import { notifyLocalChange } from './sync.js';
+import { printReceipt } from './receipt.js';
 import {
   esc, fmtMoney, fmtDateTime, todayStr, toast, openModal, confirmDialog,
   field, formValue, formNumber, badge, statusBadge, emptyRow, setupTabs
@@ -229,6 +230,7 @@ function renderOrders() {
         <td class="num">${fmtMoney(o.total)}</td>
         <td>${statusBadge(o.status)}</td>
         <td class="actions-cell">
+          <button class="btn btn-primary btn-sm" data-act="receipt" data-id="${o.id}" type="button">Receipt</button>
           <button class="btn btn-ghost btn-sm" data-act="edit" data-id="${o.id}" type="button">Edit</button>
           <button class="btn btn-ghost btn-sm" data-act="delete" data-id="${o.id}" type="button">Delete</button>
         </td>
@@ -240,6 +242,15 @@ async function onOrdersClick(event) {
   const button = event.target.closest('button[data-act]');
   if (!button) return;
   const order = orders.find((o) => o.id === button.dataset.id);
+  if (button.dataset.act === 'receipt') {
+    printReceipt({
+      service: 'shop', receiptNo: `SHOP-${String(order.id).slice(0, 8).toUpperCase()}`,
+      customer: order.customer_name, date: order.order_date, total: order.total,
+      lines: (order.items || []).map((item) => ({ name: item.name, qty: item.qty, total: Number(item.qty) * Number(item.price) })),
+      meta: { Status: order.status }
+    });
+    return;
+  }
   if (button.dataset.act === 'edit') {
     orderModal(order);
   } else if (button.dataset.act === 'delete') {

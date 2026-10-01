@@ -2,6 +2,7 @@
 import { initShell } from '../script.js';
 import { DB, saveRecord, deleteRecord } from './db.js';
 import { notifyLocalChange } from './sync.js';
+import { printReceipt } from './receipt.js';
 import {
   esc, fmtMoney, fmtDateTime, todayStr, toast, openModal, confirmDialog,
   field, formValue, formNumber, formChecked, badge, statusBadge, emptyRow, setupTabs
@@ -152,11 +153,12 @@ function renderOrders() {
   document.getElementById('rorders-body').innerHTML = list.length
     ? list.map((o) => `<tr>
         <td class="nowrap">${fmtDateTime(o.created_at)}</td>
-        <td>Table ${esc(o.table_no || '—')}</td>
+        <td>${esc(o.customer_name || 'Walk-in customer')}<br><span class="muted">Table ${esc(o.table_no || '—')}</span></td>
         <td>${esc(itemsSummary(o.items))}</td>
         <td class="num">${fmtMoney(o.total)}</td>
         <td>${statusBadge(o.status)}</td>
         <td class="actions-cell">
+          <button class="btn btn-primary btn-sm" data-act="receipt" data-id="${o.id}" type="button">Receipt</button>
           <button class="btn btn-ghost btn-sm" data-act="edit" data-id="${o.id}" type="button">Edit</button>
           <button class="btn btn-ghost btn-sm" data-act="delete" data-id="${o.id}" type="button">Delete</button>
         </td>
@@ -168,6 +170,15 @@ async function onOrdersClick(event) {
   const button = event.target.closest('button[data-act]');
   if (!button) return;
   const order = orders.find((o) => o.id === button.dataset.id);
+  if (button.dataset.act === 'receipt') {
+    printReceipt({
+      service: 'restaurant', receiptNo: `REST-${String(order.id).slice(0, 8).toUpperCase()}`,
+      customer: order.customer_name, date: order.created_at, total: order.total,
+      lines: (order.items || []).map((item) => ({ name: item.name, qty: item.qty, total: Number(item.qty) * Number(item.price) })),
+      meta: { Table: order.table_no, Status: order.status }
+    });
+    return;
+  }
   if (button.dataset.act === 'edit') {
     orderModal(order);
   } else if (button.dataset.act === 'delete') {
@@ -214,6 +225,7 @@ function orderModal(order) {
     wide: true,
     bodyHTML: `
       <div class="field-row">
+        ${field({ label: 'Customer name', name: 'customer_name', value: order ? order.customer_name : '', placeholder: 'Walk-in customer' })}
         ${field({ label: 'Table number', name: 'table_no', value: order ? order.table_no : '', required: true, placeholder: 'e.g. 4' })}
         ${field({
           label: 'Status', name: 'status', value: order ? order.status : 'pending',
@@ -257,6 +269,7 @@ function orderModal(order) {
       await saveRecord('restaurant_orders', {
         id: order ? order.id : undefined,
         created_at: order ? order.created_at : undefined,
+        customer_name: formValue(form, 'customer_name'),
         table_no: tableNo,
         status: formValue(form, 'status'),
         items,

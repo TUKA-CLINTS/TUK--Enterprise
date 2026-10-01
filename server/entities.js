@@ -37,7 +37,7 @@ const ENTITIES = {
   trips: {
     table: 'trips',
     department: 'transport',
-    columns: ['id', 'vehicle_id', 'driver_id', 'origin', 'destination', 'departure', 'arrival', 'cargo', 'status', 'created_at', 'updated_at', 'deleted'],
+    columns: ['id', 'vehicle_id', 'driver_id', 'origin', 'destination', 'customer_name', 'fare', 'departure', 'arrival', 'cargo', 'status', 'created_at', 'updated_at', 'deleted'],
     jsonColumns: []
   },
 
@@ -51,7 +51,7 @@ const ENTITIES = {
   restaurant_orders: {
     table: 'restaurant_orders',
     department: 'restaurant',
-    columns: ['id', 'table_no', 'items', 'total', 'status', 'created_at', 'updated_at', 'deleted'],
+    columns: ['id', 'customer_name', 'table_no', 'items', 'total', 'status', 'created_at', 'updated_at', 'deleted'],
     jsonColumns: ['items']
   },
   reservations: {
