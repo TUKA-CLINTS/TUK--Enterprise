@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Create account — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="auth-wrap">
+      <aside class="auth-side">
+        <h1>Join <em>TUK@ ENTERPRISES</em></h1>
+        <p class="muted">Create your account and choose the department you work in.</p>
+        <ul class="auth-points">
+          <li>Shop — products, inventory, sales orders</li>
+          <li>Transport — vehicles, drivers, trips</li>
+          <li>Restaurant — menu, orders, reservations</li>
+          <li>Head Office — oversight of all departments</li>
+        </ul>
+      </aside>
+
+      <section class="auth-card">
+        <h2 class="auth-title">Create your account</h2>
+        <p class="auth-sub">New accounts start as Staff in the department you choose. Your manager can upgrade your role later.</p>
+        <div class="form-error" hidden></div>
+        <form id="signup-form" novalidate>
+          <label class="field" for="name">
+            <span class="field-label">Full name <em>*</em></span>
+            <input id="name" type="text" name="name" autocomplete="name" required placeholder="e.g. Jane Wanjiru">
+          </label>
+          <div class="field-row">
+            <label class="field" for="email">
+              <span class="field-label">Email address <em>*</em></span>
+              <input id="email" type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+            </label>
+            <label class="field" for="phone">
+              <span class="field-label">Phone number</span>
+              <input id="phone" type="tel" name="phone" autocomplete="tel" placeholder="+254 7xx xxx xxx">
+            </label>
+          </div>
+          <label class="field" for="department">
+            <span class="field-label">Department <em>*</em></span>
+            <select id="department" name="department" required>
+              <option value="" selected disabled>Choose your department…</option>
+              <option value="shop">Shop — retail store</option>
+              <option value="transport">Transport — vehicles &amp; trips</option>
+              <option value="restaurant">Restaurant — food &amp; service</option>
+              <option value="head-office">Head Office — administration</option>
+            </select>
+          </label>
+          <div class="field-row">
+            <label class="field" for="password">
+              <span class="field-label">Password <em>*</em></span>
+              <input id="password" type="password" name="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters">
+            </label>
+            <label class="field" for="confirm">
+              <span class="field-label">Confirm password <em>*</em></span>
+              <input id="confirm" type="password" name="confirm" autocomplete="new-password" required placeholder="Repeat your password">
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Create account</button>
+        </form>
+        <p class="auth-alt">Already have an account? <a href="sign-in.html">Sign in</a></p>
+        <p class="auth-note">Creating an account needs a network connection. After that, sign-in on this device works offline too.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/auth-pages.js"></script>
+</body>
+</html>

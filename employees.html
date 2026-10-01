@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Employees — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Employees</h1>
+        <p class="page-sub">Accounts and roles across the departments.</p>
+      </div>
+    </div>
+
+    <div id="offline-note" class="callout callout-warn" hidden>
+      Employee management needs a network connection. Reconnect to create or edit accounts.
+    </div>
+
+    <div class="toolbar">
+      <input id="user-search" class="search-input" type="search" placeholder="Search employees…">
+      <span class="spacer"></span>
+      <button id="add-employee" class="btn btn-primary" type="button">Add employee</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Phone</th><th>Department</th><th>Role</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/employees.js"></script>
+</body>
+</html>

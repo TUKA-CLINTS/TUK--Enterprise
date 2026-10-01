@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Transport — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Transport department</h1>
+        <p class="page-sub">Vehicles, drivers and trips / shipments.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="vehicles" type="button">Vehicles</button>
+      <button class="tab-btn" data-tab="drivers" type="button">Drivers</button>
+      <button class="tab-btn" data-tab="trips" type="button">Trips / Shipments</button>
+    </div>
+
+    <section id="tab-vehicles" class="tab-panel">
+      <div class="toolbar">
+        <input id="vehicle-search" class="search-input" type="search" placeholder="Search vehicles…">
+        <span class="spacer"></span>
+        <button id="add-vehicle" class="btn btn-primary" type="button">Add vehicle</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Plate no.</th><th>Model</th><th>Type</th><th>Capacity</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="vehicles-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-drivers" class="tab-panel" hidden>
+      <div class="toolbar">
+        <input id="driver-search" class="search-input" type="search" placeholder="Search drivers…">
+        <span class="spacer"></span>
+        <button id="add-driver" class="btn btn-primary" type="button">Add driver</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Licence no.</th><th>Phone</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="drivers-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-trips" class="tab-panel" hidden>
+      <div class="toolbar">
+        <span class="muted">Schedule trips and track shipments.</span>
+        <span class="spacer"></span>
+        <button id="add-trip" class="btn btn-primary" type="button">Schedule trip</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Departure</th><th>Route</th><th>Vehicle</th><th>Driver</th><th>Cargo</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="trips-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/transport.js"></script>
+</body>
+</html>

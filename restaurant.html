@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Restaurant — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Restaurant department</h1>
+        <p class="page-sub">Menu, orders and table reservations.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="menu" type="button">Menu</button>
+      <button class="tab-btn" data-tab="orders" type="button">Orders</button>
+      <button class="tab-btn" data-tab="reservations" type="button">Reservations</button>
+    </div>
+
+    <section id="tab-menu" class="tab-panel">
+      <div class="toolbar">
+        <input id="menu-search" class="search-input" type="search" placeholder="Search the menu…">
+        <span class="spacer"></span>
+        <button id="add-menu-item" class="btn btn-primary" type="button">Add menu item</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Category</th><th class="num">Price</th><th>Available</th><th>Description</th><th></th></tr>
+          </thead>
+          <tbody id="menu-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-orders" class="tab-panel" hidden>
+      <div class="toolbar">
+        <input id="rorder-search" class="search-input" type="search" placeholder="Search orders by table…">
+        <span class="spacer"></span>
+        <button id="add-rorder" class="btn btn-primary" type="button">New order</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Table</th><th>Items</th><th class="num">Total</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="rorders-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-reservations" class="tab-panel" hidden>
+      <div class="toolbar">
+        <input id="reservation-search" class="search-input" type="search" placeholder="Search reservations…">
+        <span class="spacer"></span>
+        <button id="add-reservation" class="btn btn-primary" type="button">New reservation</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Time</th><th>Customer</th><th>Phone</th><th class="num">Party</th><th>Table</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="reservations-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/restaurant.js"></script>
+</body>
+</html>

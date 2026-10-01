@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sign in — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="auth-wrap">
+      <aside class="auth-side">
+        <h1>Welcome back to <em>TUK@ ENTERPRISES</em></h1>
+        <p class="muted">Sign in to manage your department — Shop, Transport or Restaurant.</p>
+        <ul class="auth-points">
+          <li>Works offline once you have signed in before</li>
+          <li>Your department's data, ready on every device</li>
+          <li>Automatic sync to the cloud</li>
+        </ul>
+      </aside>
+
+      <section class="auth-card">
+        <h2 class="auth-title">Sign in</h2>
+        <p class="auth-sub">Enter your account details to continue.</p>
+        <div class="form-error" hidden></div>
+        <form id="signin-form" novalidate>
+          <label class="field" for="email">
+            <span class="field-label">Email address</span>
+            <input id="email" type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+          </label>
+          <label class="field" for="password">
+            <span class="field-label">Password</span>
+            <input id="password" type="password" name="password" autocomplete="current-password" required placeholder="Your password">
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+        <p class="auth-alt"><a href="recover.html">Forgot password?</a></p>
+        <p class="auth-alt">New here? <a href="create-account.html">Create an account</a></p>
+        <p class="auth-note">After your first sign-in on a device, the app keeps working there even without network — changes sync automatically later.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/auth-pages.js"></script>
+</body>
+</html>

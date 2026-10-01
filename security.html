@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Security — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Security centre</h1>
+        <p class="page-sub">Account recovery, identity documents and notification history.</p>
+      </div>
+      <button id="refresh-all" class="btn btn-ghost" type="button">Refresh</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="documents" type="button">Recovery documents</button>
+      <button class="tab-btn" data-tab="requests" type="button">Recovery requests</button>
+      <button class="tab-btn" data-tab="notifications" type="button">Notifications</button>
+    </div>
+
+    <section id="tab-documents" class="tab-panel">
+      <div class="callout callout-info">
+        These documents are the "secret option" for recovering an account when the password is forgotten:
+        recovery requires the emailed code <strong>plus</strong> a live capture of one of these documents.
+        Register at least one (National ID, Driving License or Permit) — capture it live so the system can compare.
+      </div>
+      <div class="toolbar">
+        <span class="muted">One document per type — saving again replaces it.</span>
+        <span class="spacer"></span>
+        <button id="add-doc" class="btn btn-primary" type="button">Add document</button>
+      </div>
+      <div id="docs-grid" class="doc-grid"></div>
+    </section>
+
+    <section id="tab-requests" class="tab-panel" hidden>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th><th>Account</th><th>Document</th><th>Submitted №</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="requests-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-notifications" class="tab-panel" hidden>
+      <div id="smtp-note" class="callout callout-warn" hidden></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th><th>Type</th><th>Recipient</th><th>Subject</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="notifications-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/security.js"></script>
+</body>
+</html>

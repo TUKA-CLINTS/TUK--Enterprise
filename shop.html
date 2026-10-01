@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shop — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Shop department</h1>
+        <p class="page-sub">Products, inventory and sales orders.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="products" type="button">Products</button>
+      <button class="tab-btn" data-tab="inventory" type="button">Inventory</button>
+      <button class="tab-btn" data-tab="orders" type="button">Sales Orders</button>
+    </div>
+
+    <section id="tab-products" class="tab-panel">
+      <div id="products-callout"></div>
+      <div class="toolbar">
+        <input id="product-search" class="search-input" type="search" placeholder="Search products or SKU…">
+        <span class="spacer"></span>
+        <button id="add-product" class="btn btn-primary" type="button">Add product</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th><th>SKU</th><th class="num">Price</th><th class="num">Cost</th>
+              <th class="num">Qty</th><th class="num">Reorder at</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="products-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-inventory" class="tab-panel" hidden>
+      <div class="toolbar">
+        <span class="muted">Stock levels update automatically from every movement.</span>
+        <span class="spacer"></span>
+        <button id="add-movement" class="btn btn-primary" type="button">Record movement</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Product</th><th>Type</th><th class="num">Qty</th><th>Note</th></tr>
+          </thead>
+          <tbody id="movements-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-orders" class="tab-panel" hidden>
+      <div class="toolbar">
+        <input id="order-search" class="search-input" type="search" placeholder="Search orders by customer…">
+        <span class="spacer"></span>
+        <button id="add-order" class="btn btn-primary" type="button">New order</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Customer</th><th>Items</th><th class="num">Total</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="orders-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/shop.js"></script>
+</body>
+</html>

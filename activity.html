@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Activity — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Activity log</h1>
+        <p class="page-sub">Every operation users make — sign-ins, data changes, account management and recovery events.</p>
+      </div>
+      <button id="refresh-activity" class="btn btn-ghost" type="button">Refresh</button>
+    </div>
+
+    <div class="toolbar">
+      <input id="activity-search" class="search-input" type="search" placeholder="Search user, action, entity…">
+      <select id="activity-action" class="search-input">
+        <option value="">All actions</option>
+        <option value="auth.">Sign-ins &amp; registration</option>
+        <option value="data.">Business data changes</option>
+        <option value="users.">Account management</option>
+        <option value="recovery.">Account recovery</option>
+        <option value="documents.">Recovery documents</option>
+      </select>
+      <span class="spacer"></span>
+      <span id="activity-count" class="muted"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th><th>User</th><th>Department</th><th>Action</th><th>Target</th><th>Details</th><th>IP</th>
+          </tr>
+        </thead>
+        <tbody id="activity-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/activity.js"></script>
+</body>
+</html>

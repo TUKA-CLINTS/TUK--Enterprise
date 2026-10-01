@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recover account — TUK@ Enterprises</title>
+  <meta name="theme-color" content="#16418b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="page">
+    <div class="auth-wrap">
+      <aside class="auth-side">
+        <h1>Recover your <em>TUK@ ENTERPRISES</em> account</h1>
+        <p class="muted">Forgot your password? Verify it's really you in three steps:</p>
+        <ul class="auth-points">
+          <li>A one-time code is sent to your account email</li>
+          <li>Capture one of your registered documents (National ID, Driving License or Permit) live</li>
+          <li>Set a new password — the account owner is notified at every step</li>
+        </ul>
+        <p class="muted">Don't remember which documents are registered? An administrator can review your request instead.</p>
+      </aside>
+
+      <section class="auth-card">
+        <div class="recover-steps">
+          <span class="recover-step active" id="step-1">1 · Email</span>
+          <span class="recover-step" id="step-2">2 · Code</span>
+          <span class="recover-step" id="step-3">3 · Document</span>
+          <span class="recover-step" id="step-4">4 · New password</span>
+        </div>
+
+        <div class="form-error" id="recover-error" hidden></div>
+
+        <!-- Step 1: email -->
+        <form id="step-email-form" novalidate>
+          <h2 class="auth-title">Account email</h2>
+          <p class="auth-sub">We'll send a recovery code to the account's email address.</p>
+          <label class="field" for="recover-email">
+            <span class="field-label">Email address</span>
+            <input id="recover-email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Send recovery code</button>
+        </form>
+
+        <!-- Step 2: code -->
+        <form id="step-code-form" hidden novalidate>
+          <h2 class="auth-title">Enter the code</h2>
+          <p class="auth-sub" id="code-message">A 6-digit code has been sent to your email. It expires in 15 minutes.</p>
+          <label class="field" for="recover-code">
+            <span class="field-label">Recovery code</span>
+            <input id="recover-code" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required placeholder="123456">
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Verify code</button>
+        </form>
+
+        <!-- Step 3: document -->
+        <form id="step-doc-form" hidden novalidate>
+          <h2 class="auth-title">Verify your document</h2>
+          <p class="auth-sub">Capture the document live (or upload a photo). Its number must match the one registered on the account.</p>
+          <label class="field" for="doc-type">
+            <span class="field-label">Document type</span>
+            <select id="doc-type" required></select>
+          </label>
+          <label class="field" for="doc-number">
+            <span class="field-label">Document number</span>
+            <input id="doc-number" type="text" required placeholder="e.g. 12345678">
+          </label>
+          <div class="field">
+            <span class="field-label">Document image <em>*</em></span>
+            <div class="capture-inline">
+              <button type="button" class="btn btn-ghost" id="recover-capture-btn">Capture / upload…</button>
+              <img id="recover-doc-preview" class="doc-preview" alt="Document preview" hidden>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Verify document</button>
+        </form>
+
+        <!-- Step 4: new password -->
+        <form id="step-password-form" hidden novalidate>
+          <h2 class="auth-title">Set a new password</h2>
+          <p class="auth-sub">Identity verified. Choose a new password for the account.</p>
+          <label class="field" for="new-password">
+            <span class="field-label">New password</span>
+            <input id="new-password" type="password" autocomplete="new-password" minlength="6" required placeholder="At least 6 characters">
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Reset password</button>
+        </form>
+
+        <!-- Success -->
+        <div id="step-done" hidden>
+          <h2 class="auth-title">Password reset</h2>
+          <p class="auth-sub">Your password has been changed. You can now sign in with the new password.</p>
+          <a class="btn btn-primary btn-block" href="sign-in.html">Go to sign in</a>
+        </div>
+
+        <p class="auth-alt"><a href="sign-in.html">Back to sign in</a></p>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script type="module" src="js/recover.js"></script>
+</body>
+</html>
