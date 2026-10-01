@@ -26,6 +26,25 @@ CREATE TABLE IF NOT EXISTS users (
   KEY idx_users_department (department)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS account_applications (
+  id                CHAR(36)     NOT NULL PRIMARY KEY,
+  name              VARCHAR(120) NOT NULL,
+  email             VARCHAR(160) NOT NULL,
+  phone             VARCHAR(40)  NOT NULL DEFAULT '',
+  department        VARCHAR(20)  NOT NULL,
+  requirements      TEXT         NOT NULL,
+  status            VARCHAR(30)  NOT NULL DEFAULT 'submitted',
+  manager_id        CHAR(36)     NOT NULL DEFAULT '',
+  admin_id          CHAR(36)     NOT NULL DEFAULT '',
+  rejection_reason  VARCHAR(500) NOT NULL DEFAULT '',
+  user_id           CHAR(36)     NOT NULL DEFAULT '',
+  created_at        BIGINT       NOT NULL DEFAULT 0,
+  updated_at        BIGINT       NOT NULL DEFAULT 0,
+  KEY idx_applications_status (status),
+  KEY idx_applications_department (department),
+  KEY idx_applications_email (email)
+) ENGINE=InnoDB;
+
 -- ---------------------------------------------------------------------------
 -- Shop department
 -- ---------------------------------------------------------------------------

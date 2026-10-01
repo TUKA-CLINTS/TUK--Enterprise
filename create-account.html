@@ -19,7 +19,7 @@
     <div class="auth-wrap">
       <aside class="auth-side">
         <h1>Join <em>TUK@ ENTERPRISES</em></h1>
-        <p class="muted">Create your account and choose the department you work in.</p>
+        <p class="muted">Submit your requirements for manager verification and administrator approval.</p>
         <ul class="auth-points">
           <li>Shop — products, inventory, sales orders</li>
           <li>Transport — vehicles, drivers, trips</li>
@@ -29,8 +29,8 @@
       </aside>
 
       <section class="auth-card">
-        <h2 class="auth-title">Create your account</h2>
-        <p class="auth-sub">New accounts start as Staff in the department you choose. Your manager can upgrade your role later.</p>
+        <h2 class="auth-title">Apply for enrollment</h2>
+        <p class="auth-sub">Your manager verifies the application and forwards it to an administrator. Login credentials are created only after approval.</p>
         <div class="form-error" hidden></div>
         <form id="signup-form" novalidate>
           <label class="field" for="name">
@@ -57,20 +57,14 @@
               <option value="head-office">Head Office — administration</option>
             </select>
           </label>
-          <div class="field-row">
-            <label class="field" for="password">
-              <span class="field-label">Password <em>*</em></span>
-              <input id="password" type="password" name="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters">
-            </label>
-            <label class="field" for="confirm">
-              <span class="field-label">Confirm password <em>*</em></span>
-              <input id="confirm" type="password" name="confirm" autocomplete="new-password" required placeholder="Repeat your password">
-            </label>
-          </div>
-          <button class="btn btn-primary btn-block" type="submit">Create account</button>
+          <label class="field" for="requirements">
+            <span class="field-label">Requirements for enrollment <em>*</em></span>
+            <textarea id="requirements" name="requirements" rows="4" required placeholder="Tell the manager about your role, responsibilities and supporting requirements."></textarea>
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Submit application</button>
         </form>
         <p class="auth-alt">Already have an account? <a href="sign-in.html">Sign in</a></p>
-        <p class="auth-note">Creating an account needs a network connection. After that, sign-in on this device works offline too.</p>
+        <p class="auth-note">Applications require a network connection. You will be notified after manager verification and administrator review.</p>
       </section>
     </div>
   </main>

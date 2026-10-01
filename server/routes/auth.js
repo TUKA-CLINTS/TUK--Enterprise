@@ -10,11 +10,10 @@ const { logActivity, clientIp, clientUa } = require('../audit');
 const router = express.Router();
 const DEPARTMENTS = ['shop', 'transport', 'restaurant', 'head-office'];
 
-// POST /api/auth/register - public sign-up. Every new account starts as
-// "staff" of the chosen department; managers/admins can promote later.
+// POST /api/auth/register - public application. It never creates credentials.
 router.post('/register', async (req, res, next) => {
   try {
-    const { name = '', email = '', phone = '', password = '', department = '' } = req.body || {};
+    const { name = '', email = '', phone = '', department = '', requirements = '' } = req.body || {};
     const cleanName = String(name).trim();
     const cleanEmail = String(email).trim().toLowerCase();
     const cleanPhone = String(phone).trim();
@@ -22,32 +21,36 @@ router.post('/register', async (req, res, next) => {
 
     if (cleanName.length < 2) return res.status(400).json({ error: 'Please enter your full name.' });
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) return res.status(400).json({ error: 'Please enter a valid email address.' });
-    if (String(password).length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters.' });
     if (!DEPARTMENTS.includes(cleanDept)) return res.status(400).json({ error: 'Please choose your department.' });
+    if (String(requirements).trim().length < 10) return res.status(400).json({ error: 'Describe the requirements for your enrollment.' });
 
-    const [existing] = await pool.query('SELECT id FROM users WHERE email = ? LIMIT 1', [cleanEmail]);
-    if (existing.length) return res.status(409).json({ error: 'An account with this email already exists. Try signing in instead.' });
+    const [existingUser] = await pool.query('SELECT id FROM users WHERE email = ? AND deleted = 0 LIMIT 1', [cleanEmail]);
+    if (existingUser.length) return res.status(409).json({ error: 'An account with this email already exists. Try signing in instead.' });
+    const [existingApplication] = await pool.query(
+      "SELECT id FROM account_applications WHERE email = ? AND status NOT IN ('rejected', 'credentials_created') LIMIT 1",
+      [cleanEmail]
+    );
+    if (existingApplication.length) return res.status(409).json({ error: 'An application with this email is already under review.' });
 
     const ts = Date.now();
-    const user = {
+    const application = {
       id: randomUUID(),
       name: cleanName,
       email: cleanEmail,
       phone: cleanPhone,
       department: cleanDept,
-      role: 'staff',
-      status: 'active',
+      requirements: String(requirements).trim(),
+      status: 'submitted',
       created_at: ts,
       updated_at: ts
     };
-    const hash = await bcrypt.hash(String(password), 10);
     await pool.query(
-      'INSERT INTO users (id, name, email, phone, password_hash, department, role, status, created_at, updated_at, deleted) VALUES (?,?,?,?,?,?,?,?,?,?,0)',
-      [user.id, user.name, user.email, user.phone, hash, user.department, user.role, user.status, ts, ts]
+      'INSERT INTO account_applications (id, name, email, phone, department, requirements, status, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)',
+      [application.id, application.name, application.email, application.phone, application.department, application.requirements, application.status, ts, ts]
     );
 
-    res.status(201).json({ token: signToken(user), user: publicUser(user) });
-    logActivity(req, { userId: user.id, userName: user.name, userEmail: user.email, department: user.department, role: user.role, action: 'auth.register' });
+    res.status(202).json({ application: { id: application.id, name: application.name, email: application.email, status: application.status } });
+    logActivity(req, { userName: application.name, userEmail: application.email, department: application.department, action: 'account_application.submitted', entity: 'account_applications', entityId: application.id });
   } catch (err) {
     next(err);
   }

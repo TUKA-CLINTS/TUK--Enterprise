@@ -61,6 +61,12 @@ export const api = {
   updateUser: (id, payload) => request(`/api/users/${id}`, { method: 'PUT', body: payload }),
   deleteUser: (id) => request(`/api/users/${id}`, { method: 'DELETE' }),
 
+  listApplications: () => request('/api/applications'),
+  forwardApplication: (id) => request(`/api/applications/${id}/forward`, { method: 'PUT' }),
+  approveApplication: (id) => request(`/api/applications/${id}/approve`, { method: 'PUT' }),
+  rejectApplication: (id, reason) => request(`/api/applications/${id}/reject`, { method: 'PUT', body: { reason } }),
+  createApplicationCredentials: (id, password) => request(`/api/applications/${id}/credentials`, { method: 'POST', body: { password } }),
+
   pushOps: (ops) => request('/api/sync/push', { method: 'POST', body: { ops } }),
   pullChanges: (since) => request(`/api/sync/pull?since=${Number(since) || 0}`),
 

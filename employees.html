@@ -18,8 +18,8 @@
   <main id="page">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Employees</h1>
-        <p class="page-sub">Accounts and roles across the departments.</p>
+        <h1 class="page-title">People &amp; applications</h1>
+        <p class="page-sub">Review enrollment requests and manage approved accounts.</p>
       </div>
     </div>
 
@@ -27,6 +27,7 @@
       Employee management needs a network connection. Reconnect to create or edit accounts.
     </div>
 
+    <div id="admin-accounts" class="hidden">
     <div class="toolbar">
       <input id="user-search" class="search-input" type="search" placeholder="Search employees…">
       <span class="spacer"></span>
@@ -41,6 +42,20 @@
         <tbody id="users-body"></tbody>
       </table>
     </div>
+    </div>
+
+    <section class="card">
+      <div class="card-head">
+        <div><h2>Enrollment applications</h2><p class="muted">Managers verify and forward requests. Administrators approve or reject them.</p></div>
+        <button id="refresh-applications" class="btn btn-ghost btn-sm" type="button">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Applicant</th><th>Department</th><th>Requirements</th><th>Status</th><th>Submitted</th><th></th></tr></thead>
+          <tbody id="applications-body"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <div id="app-footer"></div>

@@ -29,9 +29,9 @@ export function canAccess(department) {
   return !!currentUser && (currentUser.role === 'admin' || currentUser.department === department);
 }
 
-// Account management is admin-only: the admin controls every department's accounts.
+// Managers review applicants for their department; admins control all accounts.
 export function canManageEmployees() {
-  return isAdmin();
+  return !!currentUser && (currentUser.role === 'admin' || currentUser.role === 'manager');
 }
 
 function setSession({ token, user }) {
@@ -42,8 +42,7 @@ function setSession({ token, user }) {
 
 export async function register(payload) {
   const data = await api.register(payload);
-  setSession(data);
-  return data.user;
+  return data.application;
 }
 
 export async function login(email, password) {

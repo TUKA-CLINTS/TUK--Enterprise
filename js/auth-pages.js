@@ -77,23 +77,22 @@ if (signupForm) {
       email: signupForm.email.value.trim(),
       phone: signupForm.phone.value.trim(),
       department: signupForm.department.value,
-      password: signupForm.password.value
+      requirements: signupForm.requirements.value.trim()
     };
-    const confirm = signupForm.confirm.value;
 
     if (!payload.name || payload.name.length < 2) return showError(signupForm, 'Enter your full name.');
     if (!payload.email) return showError(signupForm, 'Enter your email address.');
     if (!payload.department) return showError(signupForm, 'Choose the department you work in.');
-    if (payload.password.length < 6) return showError(signupForm, 'Password must be at least 6 characters.');
-    if (payload.password !== confirm) return showError(signupForm, 'The two passwords do not match.');
+    if (payload.requirements.length < 10) return showError(signupForm, 'Describe the requirements for your enrollment.');
 
     const button = signupForm.querySelector('button[type="submit"]');
     button.disabled = true;
-    button.textContent = 'Creating account…';
+    button.textContent = 'Submitting application…';
     try {
-      const user = await register(payload);
-      toast(`Welcome to TUK@ Enterprises, ${user.name.split(' ')[0]}!`, 'success');
-      window.location.href = 'dashboard.html';
+      await register(payload);
+      signupForm.reset();
+      toast('Application submitted. Your manager will verify it before administrator approval.', 'success');
+      button.textContent = 'Application submitted';
     } catch (err) {
       if (err.offline) {
         showError(signupForm, 'No network connection. Creating an account needs the server — please reconnect and try again.');
@@ -101,7 +100,7 @@ if (signupForm) {
         showError(signupForm, err.message);
       }
       button.disabled = false;
-      button.textContent = 'Create account';
+      button.textContent = 'Submit application';
     }
   });
 }
