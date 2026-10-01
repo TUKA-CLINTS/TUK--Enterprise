@@ -122,7 +122,7 @@ function credentialsModal(application) {
   return openModal({
     title: `Create credentials for ${application.name}`,
     submitLabel: 'Create login credentials',
-    bodyHTML: `${field({ label: 'Login email', name: 'email', value: application.email })}${field({ label: 'Temporary password', name: 'password', type: 'password', required: true, placeholder: 'At least 6 characters' })}`,
+    bodyHTML: `<p class="field"><span class="field-label">Login email</span><strong>${esc(application.email)}</strong><span class="field-hint">Applicant details cannot be modified by a manager.</span></p>${field({ label: 'Temporary password', name: 'password', type: 'password', required: true, placeholder: 'At least 6 characters' })}`,
     onSubmit: async (form) => {
       const password = formValue(form, 'password');
       if (password.length < 6) throw new Error('Password must be at least 6 characters.');

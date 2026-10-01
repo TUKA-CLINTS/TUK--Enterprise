@@ -73,6 +73,8 @@ router.put('/:id/reject', requireAuth, requireRole('admin'), async (req, res, ne
   } catch (err) { next(err); }
 });
 
+// Managers may perform this one-time transition only. Account edits remain
+// behind the admin-only /api/users routes.
 router.post('/:id/credentials', requireAuth, requireRole('manager'), async (req, res, next) => {
   try {
     const application = await loadApplication(req.params.id);
